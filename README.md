@@ -2,6 +2,16 @@
 
 <br>
 
+
+signs from the American Musem of Natural History Herpetology grad office:
+
+<img src="images/justtextfiles.jpeg" width="70%"/>
+
+
+
+
+<br>
+
 - [MedicineBow tutorial](https://github.com/seanharrington256/evoanalysis/blob/main/medbow_tutorial/medbow_tutorial.md)
 
 <br>
