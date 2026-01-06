@@ -3,9 +3,10 @@
 <br>
 
 
-signs from the American Musem of Natural History Herpetology grad office:
 
-<img src="images/justtextfiles.jpeg" width="70%"/>
+<img src="images/justtextfiles.jpeg" width="60%"/>
+
+* signs from the American Musem of Natural History Herpetology grad office
 
 
 
