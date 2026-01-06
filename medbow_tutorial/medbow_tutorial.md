@@ -8,7 +8,7 @@
 
 - [Overview](#Overview)
 - [Logging in](#logging-in)
-- [Navigating MedicineBow](#navigating-beartooth)
+- [Navigating MedicineBow](#navigating-medicinebow)
 - [Moving, copying, and removing files](#moving-copying-and-removing-files)
 - [Where to store files](#where-to-store-files)
 - [Editing files](#editing-files)
@@ -498,7 +498,7 @@ SLURM also incorporates priority into deciding whose jobs run when. If multiple 
 
 ### Modules
 
-Modules are pieces or collections of software that are installed on Beartooth. There are a lot of programs that are installed and available to users on Beartooth. Rather than loading up all of the software each time you log in, users load the individual programs they need as they need them. Some commands for modules:
+Modules are pieces or collections of software that are installed on MedicineBow. There are a lot of programs that are installed and available to users on MedicineBow. Rather than loading up all of the software each time you log in, users load the individual programs they need as they need them. Some commands for modules:
 
 ```
 # see a non-comprehensive list of available modules
