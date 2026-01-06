@@ -8,17 +8,26 @@
 
 ^ from the American Musem of Natural History Herpetology grad office
 
+<br>
 
+Folder containing papers discussed in class:
+
+- [Papers for class](https://github.com/seanharrington256/evoanalysis/blob/main/papers)
+
+<br>
+
+Exercise using the shell for first class:
+
+- [Unix shell exercise](https://swcarpentry.github.io/shell-novice/index.html)
 
 
 <br>
+
+A general introduction to to UW's MedicineBow computing cluster:
 
 - [MedicineBow tutorial](https://github.com/seanharrington256/evoanalysis/blob/main/medbow_tutorial/medbow_tutorial.md)
 
 <br>
-
-- [Papers for class](https://github.com/seanharrington256/evoanalysis/blob/main/papers)
-
 <br>
 <br>
 <br>
