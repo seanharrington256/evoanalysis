@@ -1,12 +1,6 @@
 # Introduction to UW's MedicineBow computing cluster
 
 
-
-##########################################################################################
-# at end, search for "Beartooth" and make sure changed all to MedBow  !!!!
-##########################################################################################
-
-
 <br>
 
 
@@ -30,7 +24,6 @@
 	- [Conda](#Conda)
 - [Job arrays](#Job-arrays)
 - [Some little tricks](#Some-little-tricks)
-	- [Multiple sessions, single login](#Multiple-sessions-single-login)
 	- [Aliases](#Aliases)
 
 
@@ -472,7 +465,7 @@ A slurm script is just a special kind of shell (bash) script, which is itself ju
 
 That header is followed by the commands you wish to execute (here just two `touch` commands to create files), then you submit a job using `sbatch <your_slurm_script>`. You can put any bash code into these files that you wish.
 
-You can see an example of a slurm script that I've used to get stats for vcf files [here](https://github.com/wyoibc/2023repres_popgen/blob/master/examples/get_vcf_stats_ratsNCscafs.slurm).
+You can see an example of a simpke slurm script that I've used to generate a phylogentic tree [here](https://github.com/seanharrington256/evoanalysis/blob/main/medbow_tutorial/examples/iqtree_ameiva.slurm).
 
 
 To monitor the status of submitted jobs, you can use:
@@ -652,7 +645,7 @@ cp $working_file COPY_$working_file
 
 This will run so fast that it's not really worth doing this way, but it's **EXTREMELY** useful if you're doing lots of repetitive tasks on genomes. I use this to run things like bwa to map dozens of genomes to a reference all at once with a single script rather then making individual scripts for each genome or running them sequentially and waiting forever. I'll even do this for relatively fast things like fastqc if I'm running it on more than a few files at a time. I basically never run anything sequentially unless running it in parallel would take me more time to figure out and code than running sequentially would.
 
-You can example of an actual slurm script I've used to map snake genomes to a reference [here](https://github.com/wyoibc/2023repres_popgen/blob/master/examples/BWA_rats.slurm).
+You can example of an actual slurm script I've used to map snake genomes to a reference [here](https://github.com/seanharrington256/evoanalysis/blob/main/medbow_tutorial/examples/bwa.slurm).
 
 
 
@@ -715,7 +708,7 @@ In both of these, I've included the code that I use to change my terminal prompt
 <br><br><br>
 
 
-[Home](https://github.com/wyoibc/2023repres_popgen)
+[Home](https://github.com/seanharrington256/evoanalysis)
 
 <br><br><br>
 <br><br><br>
