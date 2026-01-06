@@ -4,7 +4,7 @@
 
 
 
-<img src="images/justtextfiles.jpeg" width="60%"/>
+<img src="images/justtextfiles.png" width="60%"/>
 
 * signs from the American Musem of Natural History Herpetology grad office
 
