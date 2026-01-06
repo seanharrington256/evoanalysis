@@ -6,7 +6,7 @@
 
 <img src="images/justtextfiles.png" width="60%"/>
 
-* signs from the American Musem of Natural History Herpetology grad office
+^ from the American Musem of Natural History Herpetology grad office
 
 
 
