@@ -31,7 +31,7 @@ A general introduction to to UW's MedicineBow computing cluster:
 
 Other online resources that will be useful as we work through course material: 
 
-- [Speciation Genomics Workshop (Meier and Ravignet)](https://speciationgenomics.github.io/)
+- [Speciation Genomics Workshop (Meier and Ravinet)](https://speciationgenomics.github.io/)
 <br>
 <br>
 <br>
