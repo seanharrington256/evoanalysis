@@ -5,6 +5,7 @@ date: "2026-01-07"
 output:
   pdf_document: default
   html_document: default
+  output: rmarkdown::github_document
 ---
 
 ```{r setup, include=FALSE}
