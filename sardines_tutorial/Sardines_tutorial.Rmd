@@ -13,7 +13,9 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## An introduction to exploring VCF files and population structure 
 
-By this point in the course, you understand basic VCF file structure and the data it contains. Let's dive into working with a VCF file, and thinking about how data filtering decisions can impact our downstream analyses. We will be working with VCF files from RADseq datasets from two African sardines: Stolothrissa miodon and Limnothrissa tanganyicae. First, let's load up the packages we will need for this work (you may need to install them first if you have not already). 
+By this point in the course, you understand basic VCF file structure and the data it contains. Let's dive into working with a VCF file, and thinking about how data filtering decisions can impact our downstream analyses. As we learned from reading the [Hemstrom et al. 2024](https://www.nature.com/articles/s41576-024-00738-6) paper this morning, "unexpected results from exploratory methods, such as principal component analysis (PCA), can be indicative of experimental or laboratory errors (for example, mislabelling), sequencing bias, sex-linked loci, selection or other phenomena". So, we will use PCA as a first-pass look at some VCF files, and then look at how filtering by locus for Hardy-Weinberg Equilibrium influences the structure that we observe. 
+
+We will be working with VCF files from RADseq datasets from two African sardines: *Stolothrissa tanganicae* and *Limnothrissa miodon*. First, let's load up the packages we will need for this work (you may need to install them first if you have not already). 
 
 ```r
 require(adegenet)
@@ -22,7 +24,7 @@ require(pegas)
 ```
 #Importing your VCF files
 
-You can find the data we will use at the course [Github site](https://github.com/seanharrington256/evoanalysis/blob/main/README.md). Download the folder and navigate your R working directory to the "Data" subfolder. 
+You can find the data we will use at the course [Github site](https://github.com/seanharrington256/evoanalysis/blob/main/README.md). Download the folder for "sardines_tutorial" and navigate your R working directory to the "Data" subfolder. 
 
 ```r
 stolovcf<-read.vcfR('stolo_pca.recode_noHWEfilter.vcf.gz')
@@ -57,7 +59,7 @@ pca_res_stolo1 <- dudi.pca(genfreqstolo, center=TRUE, scale=FALSE)
 
 This will ask you how many principal components you want to retain. The eigenvalues (height of the bars) for each of these compnents roughly corresponds to the amount of genetic variation explained by each principal component. General advice is to retain all components before they drop off sharply. We need to retain at least 2 to make the plots we want. 
 
-Make a simple plot:
+Make a simple plot for *Stolothrissa*:
 
 ```r
 plot(pca_res_stolo1$li, pch = 19, cex = 1, col = "blue")
@@ -82,7 +84,7 @@ plot(pca_res_stolo2$li[,2:3], pch = 19, cex = 1, col = "blue")
 ```
 QUESTION: 3) What do you see plotting axes 1 and 2? What do you see plotting axes 2 and 3?  
 
-Let's see if we see something similar with Limnothrissa! 
+Let's see if we see something similar with *Limnothrissa*! 
 
 ```r
 pca_res_limno <- dudi.pca(genfreqlimno, center=TRUE, scale=FALSE, scannf = FALSE, nf = 4)
@@ -92,7 +94,7 @@ plot(pca_res_limno$li[,1:2], pch = 19, cex = 1, col = "red")
 plot(pca_res_limno$li[,2:3], pch = 19, cex = 1, col = "red")
 
 ```
-QUESTION: 4) What do you see in Limnothrissa in the PCAs, and how does this differ from what we have seen in Stolothrissa?   
+QUESTION: 4) What do you see in *Limnothrissa* in the PCAs, and how does this differ from what we have seen in *Stolothrissa*?   
 
 Now I'll give you some more information about these fish. Here is a data sheet including all sampling information for all individuals in both datasets, and some code to match and pair data from the info file with the genetic results. Make sure you look carefully at the code and understand how it is working. 
 
@@ -111,13 +113,14 @@ There are specific sampling sites in this file as well as "General Location" (co
 
 ```r
 #let's assign colors to the general regions
-color_map <- c("Kigoma" = "black", "North Mahale" = "red", "South Mahale" = "green", "North DRC" = "blue")
+color_map <- c("Kigoma" = "black", "North Mahale" = "red", "South Mahale" = "green", 
+              "North DRC" = "blue")
 
 #now append a color vector to our matched fish info subset dataframes
 Sfullfishinfomatched$colorvec <- color_map[Sfullfishinfomatched$General.Location]
 Lfullfishinfomatched$colorvec <- color_map[Lfullfishinfomatched$General.Location]
 
-#now we can use that color vector that is the last column of our matched dataframe" 
+#now we can use that color vector that is the last column of our matched dataframe 
 plot(pca_res_stolo2$li[,1:2], pch = 19, cex = 1, col = Sfullfishinfomatched$colorvec)
 
 plot(pca_res_limno$li[,1:2], pch = 19, cex = 1, col = Lfullfishinfomatched$colorvec)
@@ -134,18 +137,27 @@ gt_limno <- extract.gt(limnovcf, element = "GT")
 loci_stolo <- vcfR2loci(stolovcf)
 loci_limno <- vcfR2loci(limnovcf)
 
-#we can test for HW equilibrium for each locus using the function hw.test() in the package pegas, where the argument B = the number of permutations. This takes a little bit. 
+#we can test for HW equilibrium for each locus using the function hw.test() in the package 
+pegas, where the argument B = the number of permutations. This takes a little bit. 
 hwe_stolo <- hw.test(loci_stolo, B = 1000)
 hwe_limno <- hw.test(loci_limno, B = 1000)
 
-# identify the loci that failed the HW test for each species.The p-values are in the 4th column of the hwe results dataframes.  
+# identify the loci that failed the HW test for each species.The p-values are in the 4th 
+#column of the hwe results dataframes.  
 pvals_stolo <- hwe_stolo[,4]
 failed_stolo <- names(pvals_stolo[pvals_stolo < 0.05])
 
 pvals_limno <- hwe_limno[,4]
 failed_limno <- names(pvals_limno[pvals_limno < 0.05])
 
-#now remove the loci that failed the HWE test from the VCFs. One note about the syntax of this code below: The vcfR object is an S4 object with "slot" names @meta, @fix, and @gt. We want to filter by locus as named in the HWE tests. The @fix slot in vcrR stands for Fixed VCF columns (CHROM, POS, REF, ALT, QUAL, FILTER, INFO). The locus names from pegas (failed_limno; failed_stolo) are formatted as CHROM + POS. If we look at the information in the @fix slot, you will see that this is split into two columns. So we have to create IDs that will match first in order to edit our VCF by pasting the CHROM + POS info in vcfR together. 
+#now remove the loci that failed the HWE test from the VCFs. One note about the syntax 
+#of this code below: The vcfR object is an S4 object with "slot" names @meta, @fix, and @gt. 
+#We want to filter by locus as named in the HWE tests. The @fix slot in vcrR stands for 
+#Fixed VCF columns (CHROM, POS, REF, ALT, QUAL, FILTER, INFO). The locus names from pegas 
+#(failed_limno; failed_stolo) are formatted as CHROM + POS. If we look at the information 
+#in the @fix slot, you will see that this is split into two columns. So we have to create 
+#IDs that will match first in order to edit our VCF by pasting the CHROM + POS info in vcfR 
+#together. 
 
 # make a site ID vector corresponding to the order of loci in the @fix slot
 site_ids_stolo <- paste(stolovcf@fix[,"CHROM"], stolovcf@fix[,"POS"], sep = "_")
