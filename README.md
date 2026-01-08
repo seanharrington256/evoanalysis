@@ -1,4 +1,4 @@
-# Advanced Evolutionary Analysis
+## Advanced Evolutionary Analysis
 
 <br>
 
@@ -10,15 +10,16 @@
 
 <br>
 
-Folder containing papers discussed in class:
+# Readings 
 
 - [Papers for class](https://github.com/seanharrington256/evoanalysis/blob/main/papers)
 
 <br>
 
-Exercise using the shell for first class:
+# Exercises 
 
-- [Unix shell exercise](https://swcarpentry.github.io/shell-novice/index.html)
+- Day 1: [Unix shell exercise](https://swcarpentry.github.io/shell-novice/index.html)
+- Day 2: [VCF, Population Structure, and Filtering exercise]() and [Data for this exercise]()
 
 
 <br>
