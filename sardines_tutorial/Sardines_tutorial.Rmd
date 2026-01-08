@@ -3,10 +3,8 @@ title: "VCFs, Population Structure, and Filtering"
 author: "Katie Wagner"
 date: "2026-01-07"
 output:
-  html_document: default
   pdf_document: default
-  md_document:
-    variant: gfm
+  html_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -133,6 +131,7 @@ QUESTION: 5) Do you think that geography explains the structure you are visualiz
 Now let's filter for Hardy-Weinberg equilibrium and repeat the PCA process. We will go back to our VCF file to do this. Typically we would do this in vcftools, but we can also do it in R for simplicity in this test example. 
 
 ```r
+#pull out genotypes and put them into a locus format needed for pegas
 gt_stolo <- extract.gt(stolovcf, element = "GT")
 gt_limno <- extract.gt(limnovcf, element = "GT")
 
@@ -140,7 +139,7 @@ loci_stolo <- vcfR2loci(stolovcf)
 loci_limno <- vcfR2loci(limnovcf)
 
 #we can test for HW equilibrium for each locus using the function hw.test() in the package 
-pegas, where the argument B = the number of permutations. This takes a little bit. 
+#pegas, where the argument B = the number of permutations. This takes a little bit. 
 hwe_stolo <- hw.test(loci_stolo, B = 1000)
 hwe_limno <- hw.test(loci_limno, B = 1000)
 
@@ -152,20 +151,22 @@ failed_stolo <- names(pvals_stolo[pvals_stolo < 0.05])
 pvals_limno <- hwe_limno[,4]
 failed_limno <- names(pvals_limno[pvals_limno < 0.05])
 
+
 #now remove the loci that failed the HWE test from the VCFs. One note about the syntax 
-#of this code below: The vcfR object is an S4 object with "slot" names @meta, @fix, and @gt. 
-#We want to filter by locus as named in the HWE tests. The @fix slot in vcrR stands for 
-#Fixed VCF columns (CHROM, POS, REF, ALT, QUAL, FILTER, INFO). The locus names from pegas 
-#(failed_limno; failed_stolo) are formatted as CHROM + POS. If we look at the information 
-#in the @fix slot, you will see that this is split into two columns. So we have to create 
-#IDs that will match first in order to edit our VCF by pasting the CHROM + POS info in vcfR 
-#together. 
+#of this code below: The vcfR object is an S4 object with "slot" names @meta, @fix, and 
+#@gt. We want to filter by locus as named in the HWE tests. The @fix slot in vcrR stands 
+#for Fixed VCF columns (CHROM, POS, REF, ALT, QUAL, FILTER, INFO). The locus names from 
+#pegas (failed_limno; failed_stolo) are formatted as CHROM + POS. If we look at the 
+#information in the @fix slot, you will see that this is split into two columns. So we 
+#have to create IDs that will match first in order to edit our VCF by pasting the 
+#CHROM + POS info in vcfR together. 
 
 # make a site ID vector corresponding to the order of loci in the @fix slot
 site_ids_stolo <- paste(stolovcf@fix[,"CHROM"], stolovcf@fix[,"POS"], sep = "_")
 site_ids_limno <- paste(limnovcf@fix[,"CHROM"], limnovcf@fix[,"POS"], sep = "_")
 
-# check the first few to see if the format matches the names in our vectors of failed loci
+# check the first few to see if the format matches the names in our vectors of 
+#failed loci
 head(site_ids)
 head(failed_stolo)
 
