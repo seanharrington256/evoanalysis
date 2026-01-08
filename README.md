@@ -39,5 +39,5 @@ Other online resources that will be useful as we work through course material:
 <br>
 <br>
 <br>
-
+# Course Information
 - [Syllabus v1](https://github.com/seanharrington256/evoanalysis/blob/main/Advanced_Evolutionary_Analysis_Syllabus_v1.pdf)
