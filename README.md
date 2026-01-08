@@ -19,7 +19,7 @@
 # Exercises 
 
 - Day 1: [Unix shell exercise](https://swcarpentry.github.io/shell-novice/index.html)
-- Day 2: [VCF, Population Structure, and Filtering exercise]() and [Data for this exercise]()
+- Day 2: [VCF, Population Structure, and Filtering exercise](sardines_tutorial/Sardines_tutorial.Rmd) and [Data for this exercise](sardines_tutorial/data)
 
 
 <br>
