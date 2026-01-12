@@ -3,6 +3,9 @@
 
 <br>
 
+[Home](https://github.com/seanharrington256/evoanalysis)
+
+<br>
 
 ## Table of Contents
 
@@ -508,7 +511,7 @@ module spider
 # search for a specific module and see info on how to load it, here the program bwa
 module spider bwa
 # load up the bwa module with it's dependcy gcc:
-module load gcc/12.2.0 bwa/0.7.17
+module load gcc/14.2.0 bwa/0.7.17
 # See all loaded modules:
 module list
 # Reset modules to default
@@ -533,7 +536,7 @@ We'll demonstrate this by creating an environment, activating it, then installin
 
 ```
 # load up the miniconda module 
-module load miniconda3/23.1.0
+module load miniconda3/24.3.0
 
 # create a new conda environment named ipyrad
 conda create -n ipyrad
