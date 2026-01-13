@@ -123,7 +123,7 @@ We'll need to start by configuring MedicineBow to use the ssh key that we linked
 First, let's check that the that the ssh-agent is running:
 
 ```
-eval `ssh-agent` # only necessary if the previous commands did not work
+eval `ssh-agent`
 ```
 
 Then add the ssh key:
@@ -141,7 +141,7 @@ Now we can create a config file in our .ssh directory (or edit it, if it already
 
 * Note that if you are using Cyberduck to look for the `.ssh` directory within your home directory, you'll need to go to the `view` options (up by file, edit, etc) in the taskbar and check `Show Hidden Files`. The name will be gray, but this will cause it to be visible.
 
-add the following to the file **(edited for your own username)**, then save and close it:
+add the following to the file, then save and close it:
 
 ```
 Host github.com
@@ -197,7 +197,7 @@ Then create a new directory with the same name (it doesn't actually need to have
 
 ```
 mkdir evoanalysis2026 # create directory
-cd 2023popgen # move into it
+cd evoanalysis2026 # move into it
 git init # this makes this a git repository
 ```
 
