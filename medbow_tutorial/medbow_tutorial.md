@@ -83,7 +83,7 @@ SSH is a method of securely communicating with another computer.
 If you are on a Mac or running a Linux operating system, then you can log in directly from the terminal; on Windows, I believe that you can do this from powershell. On older versions of Windows that do not have ssh capability within powershell, you will need to install an ssh client to allow you to log into and communicate with MedicineBow, such as [MobaXterm ](https://mobaxterm.mobatek.net/download.html) or [PuTTY](https://www.putty.org/). Note that I have not used Windows in a long time and am not up to date on the best ways to do anything in Windows, so there are likely newer, better options out there.
 
 
-Before logging in from the terminal, you will need to set up ssh key login. This is documented thoroughly for different operating systems on ARCC's website [here](https://arccwiki.atlassian.net/wiki/spaces/DOCUMENTAT/pages/2104950963/SSH+Key+Authentication). This can be somewhat confusing if you are not familiar with the process and some people have encountered permissions issues with the keys - if you run into issues, you can contact ARCC for help at `arcchelp@uwyo.edu`.
+Before logging in from the terminal, you will need to set up ssh key login. This is documented thoroughly for different operating systems on ARCC's website [here](https://arccwiki.atlassian.net/wiki/spaces/DOCUMENTAT/pages/2104950963/SSH+Key+Authentication). This can be somewhat confusing if you are not familiar with the process and some people have encountered permissions issues with the keys - if you run into issues, you can contact ARCC for help at `arcc-help@uwyo.edu`.
 
 Once that is set up, you can simply enter the following into a terminal or powershell window:
 

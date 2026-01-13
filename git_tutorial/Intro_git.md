@@ -75,7 +75,7 @@ We can leave the rest of the options at defaults and click `Create repository`. 
 
 We need to do some work to link MedicineBow to your Github account.
 
-To start, you will need to make sure that you own and can access your `~/.ssh` directory, if you do not, you will need to email ARCC ([arcchelp@uwyo.edu.](mailto:arcchelp@uwyo.edu.)) and have them transfer ownership of that directory to you. You can check the ownership by running `ls -ld ~/.ssh`. You should see a series of letters and a number followed by your username twice if you own the directory or followed by `root` twice if the directory is owned by root. If you own the directory, you’re good to continue on.
+To start, you will need to make sure that you own and can access your `~/.ssh` directory, if you do not, you will need to email ARCC ([arcc-help@uwyo.edu.](mailto:arcc-help@uwyo.edu.)) and have them transfer ownership of that directory to you. You can check the ownership by running `ls -ld ~/.ssh`. You should see a series of letters and a number followed by your username twice if you own the directory or followed by `root` twice if the directory is owned by root. If you own the directory, you’re good to continue on.
 
 You need to start by generating an ssh key pair that will allow your computer (or MedicineBow in this case) to securely interact with Github. You can read more about ssh keys [here](https://wiki.archlinux.org/title/SSH_keys), we won't get into any details about them. To create the ssh key pair, run the following:
 
