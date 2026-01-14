@@ -36,6 +36,13 @@ An introduction to git and Github:
 - [git & Github tutorial](https://github.com/seanharrington256/evoanalysis/blob/main/git_tutorial/Intro_git.md)
 
 
+An overview of read quality control, mapping, and variant calling:
+
+- [git & Github tutorial](https://github.com/seanharrington256/evoanalysis/blob/main/map_call_tutorial/map_call.md)
+
+
+
+
 <br>
 
 Other online resources that will be useful as we work through course material: 
