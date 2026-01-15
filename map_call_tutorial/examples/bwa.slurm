@@ -21,7 +21,7 @@ cd /trimmed/fastq/directory
 
 # Define the path to your reference genome
 #  MAKE SURE YOU INDEXED IT BEFORE THIS SCRIPT OR MAPPING WILL FAIL!!
-REF=/project/YOURPROJECT/SOMEPATH/referencegenom.fasta
+REF=/project/YOURPROJECT/SOMEPATH/referencegenome.fasta
 
 # Make an output directoruy
 OUTDIR=/project/YOURPROJECT/bwa_output

@@ -15,6 +15,8 @@ Today we'll go over the steps for mapping and variant calling short read (i.e., 
 
 
 
+* **In the example scripts I have included, the file paths are all dummy paths that you will need to edit**
+
 <br>
 <br>
 
@@ -55,7 +57,7 @@ You can see an example of how I have run this [here](https://github.com/seanharr
 
 
 
-You can see an example fastqc report [here](https://github.com/seanharrington256/evoanalysis/blob/main/map_call_tutorial/examples/R179196_S12_L004_R1_001_fastqc.html) - you will have to download the file and open it, Github won't render the html.
+**You can see an example fastqc report [here](https://github.com/seanharrington256/evoanalysis/blob/main/map_call_tutorial/examples/R179196_S12_L004_R1_001_fastqc.html) - you will have to download the file and open it, Github won't render the html.**
 
 Most of this looks pretty good, except we can see a good bit of polyG tail in some reads in the bottom plot.
 
@@ -106,7 +108,7 @@ with default settings, fastp will search for adapter sequence in reads and remov
 
 I typically also add sliding window trimming to cut the end off of a read whenever the average base quality for a window of 4 bases drops below 20 and some other options.
 
-You can see an example script for fastp [here](https://github.com/seanharrington256/evoanalysis/blob/main/map_call_tutorial/examples/fastp.slurm). To figure out what all of the options are that I use, go look at the fastp documentation linked above. 90% of learning to code is learning to read and interpret documentation and figure out error reports.
+**You can see an example script for fastp [here](https://github.com/seanharrington256/evoanalysis/blob/main/map_call_tutorial/examples/fastp.slurm).** To figure out what all of the options are that I use, go look at the fastp documentation linked above. 90% of learning to code is learning to read and interpret documentation and figure out error reports.
 
 
 In your output directory from fastp, you will end up with new fastq files that have been cleaned for quality. You should still never delete your raw, uncleaned fastq files. You will need to upload them when you publish, and there are many reasons why you might want to go back to them fresh. This does unfortunately mean that you have already roughly doubled the amount of storage your data takes up before even doing any analysis.
@@ -151,7 +153,7 @@ bwa index ref.fasta
 After that, you are ready to map.
 
 
-You can see an example bwa mapping script [here](https://github.com/seanharrington256/evoanalysis/blob/main/map_call_tutorial/examples/bwa.slurm).
+**You can see an example bwa mapping script [here](https://github.com/seanharrington256/evoanalysis/blob/main/map_call_tutorial/examples/bwa.slurm).**
 
 <br>
 
@@ -159,11 +161,74 @@ You can see an example bwa mapping script [here](https://github.com/seanharringt
 
 Most Illumina library preps involve a PCR step. However, when sequencing the goal is to sequence at a concentration such that you only sequence reads from different starting DNA molecules - i.e., you want your reads to start from different cells or different chromosome copies, you do not want to sequence multiple PCR copies of the same starting molecule. When you end up with multiple copies of the same starting molecule, these are referred as PCR duplicates, and you want to remove these.
 
-Duplicates can be identified as identical reads with identical mapping positions. 
-
-
+Duplicates can be identified as identical reads with identical mapping positions in shotgun sequencing data (i.e., randomly sheared whole genome data). 
 
 * Note that RADseq reads intentionally start at identical positions to target the same loci and start from a restriction cut site, so you should generally not remove duplicates with RADseq data.
+
+The MarkDuplicates command in [Picard](https://broadinstitute.github.io/picard/) can be used to remove duplicates from whole genome data.
+
+**You can see an example Picard script for removing duplicates [here](https://github.com/seanharrington256/evoanalysis/blob/main/map_call_tutorial/examples/picard.slurm)**
+
+<br>
+
+### Check mapping
+
+Now you have mapped bam files with duplicates. Before or as you move on to variant calling you can run the `flagstat` command in [samtools](https://www.htslib.org/) to check how well your reads mapped to the reference.
+
+
+**You can see an example samtools flagstat script [here](https://github.com/seanharrington256/evoanalysis/blob/main/map_call_tutorial/examples/flagstat.slurm)**
+
+This will give you an output file that looks like the one [here](https://github.com/seanharrington256/evoanalysis/blob/main/map_call_tutorial/examples/R179199_flagstat.out)
+
+
+
+
+<br>
+<br>
+<br>
+
+
+
+## Variant calling
+
+Once you have mapped your reads (and removed duplicates if desired), you can call variants. This process basically goes through your bam files and based on the reads that map to sites in the genome, assigns a call to each mapped site in the genome. E.g., if 10 reads mapped at a site are all "A", that will be called as A for that sample at that site. 
+
+Most of the time, when you call variants you will call only variable site - that is, sites that have at least 2 (and often only exactly 2) alleles within your set of samples. So you will exclude sites where all samples have the same base, which massively saves disk space and excludes information that many population genetics programs won't use anyways.
+
+* Some programs like [pixy](https://pixy.readthedocs.io/en/latest/), which calculates fst, dxy, and pi in windows across the genome, require that invariant sites are included in the final vcf
+
+
+**You can see an example variant calling script using bcftools [here](https://github.com/seanharrington256/evoanalysis/blob/main/map_call_tutorial/examples/var_call.slurm).**
+
+This script runs a job array that calls variants separately for each chromosome to speed up calling. It is muc faster than calling variants across the whole genome at once, but requires some other setup we won't go into here.
+
+**After calling variants you will want to sort each vcf file, as in [this script](https://github.com/seanharrington256/evoanalysis/blob/main/map_call_tutorial/examples/sort_vcfs.slurm)**
+
+
+**Then you can concatenate all of these vcf files for each individual scaffold into one large vcf file that contains all variants across the whole genome, as in [this script](https://github.com/seanharrington256/evoanalysis/blob/main/map_call_tutorial/examples/combine_all_vcf.slurm)**
+
+* Note that this script to combine is not a job array, because it needs to do a single job to combine all the vcf files, it can't be done on each independently
+
+
+Note that there are multiple variant callers, this is just one way to do it and not necessarily the best way for your data.
+
+<br>
+<br>
+<br>
+
+## Variant calling
+
+Once you have your vcf file, you can filter it based on whatever criteria you like. For smaller files you can do this interactively, for large files, I use scripts.
+
+**You can see an example filtering script [here](https://github.com/seanharrington256/evoanalysis/blob/main/map_call_tutorial/examples/filter_vcf.slurm)**
+
+Instead of vcftools, you can use bcftools for filtering. It is faster and more powerful software, but the commands aren't quite as straightforward.
+
+
+
+And remember that the way you filter vcf files will depend on the specific analyses you want to perform and the properties of your data.
+
+
 
 
 <br><br><br>
