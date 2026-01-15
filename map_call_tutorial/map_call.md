@@ -8,6 +8,29 @@
 <br>
 
 
+
+## Table of Contents
+
+- [Quality control](#Quality-control)
+	- [Initial quality check](#Initial-quality-check)
+	- [Trimming](#Trimming)
+	- [Post-trimmed QC](#Post-trimmed-QC)
+- [Mapping](#Mapping)
+	- [Mapping with BWA](#Mapping-with-BWA)
+	- [Remove duplicates](#Remove-duplicates)
+	- [Check mapping](#Check-mapping)
+- [Variant calling](#Variant-calling)
+- [Variant filtering](#Variant-filtering)
+
+
+
+
+<br>
+<br>
+<br>
+
+
+
 Today we'll go over the steps for mapping and variant calling short read (i.e., Illumina) data. We will cover assessing the quality of your reads, trimming reads, mapping reads to a reference genome, calling variants from the mapped reads, and filtering variants.
 
 
