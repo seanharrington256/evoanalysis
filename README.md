@@ -25,6 +25,14 @@
 
 <br>
 
+
+Sean's challenge 3 solutions are available [here](https://github.com/seanharrington256/evoanalysis/tree/main/challenge_3_solution). `seans_challenge_3_cmd.md` shows development of the code interactively, `seans_challenge_3_single.slurm` takes that and puts it into a slurm file that runs on a single fastq file, `seans_challenge_3_array.slurm` then modifies the previous into an array job. 
+
+
+
+
+<br>
+
 # Resources
 
 A general introduction to to UW's MedicineBow computing cluster:
@@ -42,7 +50,7 @@ An overview of read quality control, mapping, and variant calling:
 
 
 
-
+<br>
 <br>
 
 Other online resources that will be useful as we work through course material: 
