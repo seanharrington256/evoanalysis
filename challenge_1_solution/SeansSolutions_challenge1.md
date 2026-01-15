@@ -75,7 +75,7 @@ awk 'NR%4==2 {print length}' AMCC264757_R1_downsamp.fastq
 get unique and sort:
 
 ```
-awk 'NR%4==2 {print length}' AMCC264757_R1_downsamp.fastq | uniq | sort -n
+awk 'NR%4==2 {print length}' AMCC264757_R1_downsamp.fastq | sort -n | uniq | tail -n 1
 ```
 
 
@@ -93,6 +93,6 @@ echo "Number of reads:" > fastqstats.txt
 grep -c '^+' AMCC264757_R1_downsamp.fastq >> fastqstats.txt
 
 echo "Longest read:" >> fastqstats.txt
-awk 'NR%4==2 {print length}' AMCC264757_R1_downsamp.fastq | uniq | sort -n >> fastqstats.txt
+awk 'NR%4==2 {print length}' AMCC264757_R1_downsamp.fastq | sort -n | uniq | tail -n 1 >> fastqstats.txt
 ```
 
