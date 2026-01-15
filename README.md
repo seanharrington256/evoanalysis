@@ -38,7 +38,7 @@ An introduction to git and Github:
 
 An overview of read quality control, mapping, and variant calling:
 
-- [git & Github tutorial](https://github.com/seanharrington256/evoanalysis/blob/main/map_call_tutorial/map_call.md)
+- [Mapping, QC, variant calling tutorial](https://github.com/seanharrington256/evoanalysis/blob/main/map_call_tutorial/map_call.md)
 
 
 
