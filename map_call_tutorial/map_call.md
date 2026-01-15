@@ -216,7 +216,7 @@ Note that there are multiple variant callers, this is just one way to do it and 
 <br>
 <br>
 
-## Variant calling
+## Variant filtering
 
 Once you have your vcf file, you can filter it based on whatever criteria you like. For smaller files you can do this interactively, for large files, I use scripts.
 
