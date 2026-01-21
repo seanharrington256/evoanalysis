@@ -68,6 +68,9 @@ Other online resources that will be useful as we work through course material:
 
 - [Speciation Genomics Workshop (Meier and Ravinet)](https://speciationgenomics.github.io/)
 
+- [Population structure in R, including plotting maps](https://github.com/wyoibc/RADseq_cloud_learn/blob/master/2_popstructR.ipynb)
+
+- [Phylogenetic analysis](https://github.com/wyoibc/RADseq_cloud_learn/blob/master/4_plot_phylo.ipynb)
 
 
 
