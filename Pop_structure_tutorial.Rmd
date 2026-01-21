@@ -21,19 +21,17 @@ sMNF is very fast compared to Structure-model type approaches, so works well for
 
 First let's load our required packages: 
 
-```r
+```{r}
 require(adegenet)
 require(vcfR)
-#if you need to install LEA, uncomment this code:  
-#install.packages("LEA")
 require(LEA)
 
 
-# LEA may need Bioconductor if CRAN version does not work with your current R version. 
-# If the typical install.packages() did not work to et it, try this code block: 
-if (!requireNamespace("LEA", quietly = TRUE)) {
-  if (!requireNamespace("BiocManager", quietly = TRUE)) {
-    install.packages("BiocManager", repos = "https://cloud.r-project.org")
+# LEA is not hosted on CRAN, and so cannot be installed with install.packages()
+#     this block will install it if it not already installed
+if (!require("LEA", quietly = TRUE)) {
+  if (!require("BiocManager", quietly = TRUE)) {
+    install.packages("BiocManager")
   }
   BiocManager::install("LEA", ask = FALSE)
   require(LEA)
@@ -42,7 +40,7 @@ if (!requireNamespace("LEA", quietly = TRUE)) {
 
 Now let's get a VCF to work with: 
 
-```r
+```{r}
 # Replace with your file path
 # Note that you can give this function the compressed vcf file directly (.vcf.gz)
 # You can also give the function the uncompressed vcf file (.vcf).
@@ -53,7 +51,7 @@ gl <- vcfR2genlight(vcf)
 gl
 ```
 
-Now let's run sNMF and the plot cross-entropy scores, which are a measure of model error. Lower values mean the model is better at explaining the data. As K increases, cross-entropy usually decreases at first, but eventually begins to increase again. Cross-entropy scores help us to identify the number of clusters that best balance explanatory power of the model and model simplicity. 
+Now let's run sNMF and the plot cross-entropy scores, which are a measure of model error. Lower values mean the model is better at explaining the data. As K increases, cross-entropy usually decreases at first, but eventually begins to increase again. Note that you do not always want the absolute lowest value. E.g., if there is a sharp drop, nd increase, and then a decrease again, you probably want the lowest value in the first drop, even if the second drop hits a slightly lower value; if values plateau after a sharp drop but continue to decrease very slightly, you probably want the first K of the plateau. Cross-entropy scores help us to identify the number of clusters that best balance explanatory power of the model and model simplicity. There is some subjectivity and you should include your knowledge of the system to help guide your choice of K.
 
 ```{r snmf, eval=FALSE}
 # Extract SNP data from genlight object as a matrix
@@ -106,21 +104,3 @@ barplot(t(qmatrix), col = rainbow(alternateK), border = NA, space = 0,
 
 
 
-
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
-summary(cars)
-```
-
-## Including Plots
-
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
