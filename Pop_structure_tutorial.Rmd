@@ -1,0 +1,126 @@
+---
+title: "Population Structure"
+author: Katie Wagner and Sean Harrington
+output: html_document
+date: "2026-01-21"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Population structure analyses in R
+
+Population assignment is a critical step in many population genetic and phylogeographic studies. Most downstream methods for estimating gene flow, divergence, population size, and other interesting population parameters require populations to be specified by you. If you have population structure in your data that you have not adequately accounted for, this can bias many types of analyses. E.g., if you try to estimate the history of population size changes in a group of samples that you assume are a single population when they actually come from multiple discrete populations, this will bias your results.
+
+There are multiple ways to assign individuals to discrete populations. In some cases, you may have a priori ideas about population boundaries based on geographic discontinuities, differences in morphology across a species range, previous genetic data, or other sources of information. However, most of the time you will want to infer the number of populations and population membership of individuals directly from your data. This is essentially a classification problem: we are seeking to classify our whole set of genetic samples into a number of populations, often while also seeking to determine how many populations are present.
+
+One of the most commonly used programs for the inference of population structure is the aptly named program [Structure](https://web.stanford.edu/group/pritchardlab/structure.html). Structure is a model-based clustering method that seeks to split individuals into clusters such that linkage disequilibrium is minimized and Hardy-Weinberg equilibrium is maximized within each cluster. Structure us a Bayesian method that relies on Markov chain Monte Carlo (MCMC) sampling, and can thus become somewhat unwieldy with large datasets. Many fast alternatives have been developed since the advent of Structure, including [Admixture](https://dalexander.github.io/admixture/) which utilizes the same model from Structure, but in a faster maximum likelihood implementation. Another, locally developed, approach is [Entropy](https://onlinelibrary.wiley.com/doi/10.1111/1755-0998.13330), which is Bayesian in implementation and uses genotype likelihoods rather than genotype calls, so can perform well on low-coverage data. Other alternative approaches do not explicitly model Hardy-Weinberg equilibrium or linkage disequilibrium, including the sNMF appraoch implemented in the [LEA R package](http://membres-timc.imag.fr/Olivier.Francois/LEA/files/LEA_github.pdf) and DAPC as implemented in the Adegenet R package, as you gained experience with the first week of class. All of these methods often (and hopefully!) produce comparable results, which are often visualized as barplots of the estimated membership of each sample in one or more population clusters or as pie charts of the same information plotted onto a map.
+
+sMNF is very fast compared to Structure-model type approaches, so works well for a quick tutorial in class, or a first-pass on your dataset. Note that it can struggle with datasets with large amounts of missing data. 
+
+First let's load our required packages: 
+
+```r
+require(adegenet)
+require(vcfR)
+#if you need to install LEA, uncomment this code:  
+#install.packages("LEA")
+require(LEA)
+
+
+# LEA may need Bioconductor if CRAN version does not work with your current R version. 
+# If the typical install.packages() did not work to et it, try this code block: 
+if (!requireNamespace("LEA", quietly = TRUE)) {
+  if (!requireNamespace("BiocManager", quietly = TRUE)) {
+    install.packages("BiocManager", repos = "https://cloud.r-project.org")
+  }
+  BiocManager::install("LEA", ask = FALSE)
+  require(LEA)
+}
+```
+
+Now let's get a VCF to work with: 
+
+```r
+# Replace with your file path
+# Note that you can give this function the compressed vcf file directly (.vcf.gz)
+# You can also give the function the uncompressed vcf file (.vcf).
+vcf <- read.vcfR("example_vcf.vcf.gz")
+
+# Convert to genlight object
+gl <- vcfR2genlight(vcf)
+gl
+```
+
+Now let's run sNMF and the plot cross-entropy scores, which are a measure of model error. Lower values mean the model is better at explaining the data. As K increases, cross-entropy usually decreases at first, but eventually begins to increase again. Cross-entropy scores help us to identify the number of clusters that best balance explanatory power of the model and model simplicity. 
+
+```{r snmf, eval=FALSE}
+# Extract SNP data from genlight object as a matrix
+geno_matrix <- as.matrix(gl)
+
+# Write to .geno file for LEA
+write.geno(geno_matrix, "genotypes.geno")
+
+# Run sNMF for K = 1:5
+project <- snmf("genotypes.geno", K=1:5, repetitions=5, project="new", entropy=TRUE)
+
+# Cross-entropy plot
+plot(project, col="black", pch=19)
+```
+
+*Questions:* 
+1. Based on the plot, which K appears to minimize the Cross-entropy score? Modify the bestK value below based on this assessment.
+
+Use this K value to plot your results: 
+
+```{r snmf2, eval=FALSE}
+
+# replace X below with the K value with lowest cross-entropy score from above
+bestK <- X            
+
+# Extract Q-matrix for best K (the Q-matrix is ancestry by individuals information)
+qmatrix <- Q(project, K = bestK, run = 1)
+
+# Plot ancestry coefficients
+barplot(t(qmatrix), col = rainbow(bestK), border = NA, space = 0,
+        xlab="Individuals", ylab="Ancestry",
+        main=paste("sNMF results for K =", bestK))
+
+# replace X with the an alternate K value below
+alternateK <- X            
+
+# Extract Q-matrix for best K
+qmatrix <- Q(project, K = alternateK, run = 1)
+
+# Plot ancestry coefficients
+barplot(t(qmatrix), col = rainbow(alternateK), border = NA, space = 0,
+        xlab="Individuals", ylab="Ancestry",
+        main=paste("sNMF results for K =", alternateK))
+```
+
+*Questions:*  
+2. Do a PCA on these same data using your skills from the first week of class. Does PCA suggest the same number of clusters as the best sNMF model?  
+  
+3. What biological processes might explain these patterns?
+
+
+
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
