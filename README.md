@@ -47,7 +47,7 @@ A general introduction to to UW's MedicineBow computing cluster:
 
 An introduction to to RStudio on MedicineBow:
 
-- [MedicineBow tutorial](https://github.com/seanharrington256/evoanalysis/blob/main/R_medbow_tutorial/r_medbow_tutorial.md)
+- [RStudio on MedBow](https://github.com/seanharrington256/evoanalysis/blob/main/R_medbow_tutorial/r_medbow_tutorial.md)
 
 
 An introduction to git and Github:
