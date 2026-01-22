@@ -70,6 +70,7 @@ Other online resources that will be useful as we work through course material:
 - [Pixy](https://github.com/ksamuk/pixy) a command-line tool for painlessly computing unbiased estimators of population genetic summary statistics that measure genetic variation within (π, θW, Tajima’s D) and between (dxy, FST) populations from a VCF
 
 
+
 Some tutorials Sean made for Google Cloud. The R and other analyses are not specific to the cloud, just ignore cloud-specific stuff if running on MedicineBow or locally:
 
 - [Population structure in R, including plotting maps](https://github.com/wyoibc/RADseq_cloud_learn/blob/master/2_popstructR.ipynb)
