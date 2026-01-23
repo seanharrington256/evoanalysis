@@ -21,7 +21,7 @@
 - Day 1: [Unix shell exercise](https://swcarpentry.github.io/shell-novice/index.html)
 - Day 2: [VCF, Population Structure, and Filtering exercise](sardines_tutorial/Sardines_tutorial.Rmd), or look at it in [PDF version](sardines_tutorial/Sardines_tutorial.pdf) for nicer formatting and [Data for this exercise](sardines_tutorial/data).
 - [Day 2 Challenge](sardines_tutorial/Sardines_tutorial_part2.Rmd) (or the nicer looking [PDF Version](sardines_tutorial/Sardines_tutorial_part2.pdf))
-- Jan 21: [Population structure in R](https://github.com/seanharrington256/evoanalysis/blob/main/Pop_structure_tutorial.Rmd). This uses the data file `/project/evoanalysis/data/petrochromis_data.vcf.gz` and if you'd like to dig into the metadata, `/project/evoanalysis/data/Petro_metadata.csv'
+- Jan 21: [Population structure in R](https://github.com/seanharrington256/evoanalysis/blob/main/Pop_structure_tutorial.Rmd). This uses the data file `/project/evoanalysis/data/petrochromis_data.vcf.gz` and if you'd like to dig into the metadata, `/project/evoanalysis/data/Petro_metadata.csv`
 - [Week 3 Challenge](Week_3_Challenge.pdf)
 
 <br>
