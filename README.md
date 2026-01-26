@@ -10,9 +10,10 @@
 
 <br>
 
-# Readings 
+# Readings and Slides
 
 - [Papers for class](https://github.com/seanharrington256/evoanalysis/blob/main/papers)
+- [Slides from class]()
 
 <br>
 
