@@ -70,6 +70,7 @@ Other online resources that will be useful as we work through course material:
 - [Speciation Genomics Workshop (Meier and Ravinet)](https://speciationgenomics.github.io/)
 - [Pixy](https://github.com/ksamuk/pixy) a command-line tool for painlessly computing unbiased estimators of population genetic summary statistics that measure genetic variation within (π, θW, Tajima’s D) and between (dxy, FST) populations from a VCF
 - A great [GEA tutorial](https://bookdown.org/hhwagner1/LandGenCourse_book/WE_11.html)
+- [LFMM in LEA (in R)](https://www.bioconductor.org/packages/devel/bioc/vignettes/LEA/inst/doc/LEA.pdf)
 - Jessica Rick's [Reich Fst estimator implementation](https://github.com/jessicarick/reich-fst) (good for small sample sizes)
 
 
