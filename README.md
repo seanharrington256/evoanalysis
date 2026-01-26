@@ -13,7 +13,7 @@
 # Readings and Slides
 
 - [Papers for class](https://github.com/seanharrington256/evoanalysis/blob/main/papers)
-- [Slides from class]()
+- [Slides from class](https://github.com/seanharrington256/evoanalysis/blob/main/Slides)
 
 <br>
 
